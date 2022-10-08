@@ -1,12 +1,18 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useHistory} from 'react-router-dom'
 
 const Favorites = () => {
+    const dispatch = useDispatch();
+
+    useEffect( () => {
+        dispatch({type: 'FETCH_FAVORITES'})
+    }, []);
+
     return (
     <> 
     <div>
-        <h2> Favorites </h2>
+        <h1> Favorites </h1>
     </div>
     
     {/* dispatch to our sagas to GET all favorited images

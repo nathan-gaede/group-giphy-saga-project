@@ -1,7 +1,7 @@
 const express = require('express');
 const pool = require('../modules/pool');
-
 const router = express.Router();
+const axios = require('axios');
 
 // return all favorite images
 router.get('/', (req, res) => {
@@ -11,7 +11,26 @@ router.get('/', (req, res) => {
   // $1 = id from database
   // $2 = giphy_id from the GIPHY API
   // $3 = category_id
+
   res.sendStatus(200);
+});
+
+
+router.get("/:search", (req, res) => {
+  const search = req.params.search; // Could use req.query.tag
+  // Make a request to the GIPHY API
+  axios
+      .get(
+          `https://api.giphy.com/v1/gifs/search?api_key=${process.env.GIPHY_API_KEY}&q=${search}&limit=25&offset=0&rating=g&lang=en`
+      )
+      .then((response) => {
+          // Send the response from GIPHY to the client
+          res.send(response.data);
+      })
+      .catch((e) => {
+          console.log(e);
+          res.sendStatus(500);
+      });
 });
 
 // add a new favorite

@@ -1,23 +1,42 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Search = () => {
+    
+    const [search, setSearch] = useState('');
+    const results = useSelector(store => store.search);
     const dispatch = useDispatch();
-    dispatch ({ type: 'SEARCH', payload: ''})
-//Use this code in the favorite.router.js
-    // router.get('/', (req, res) => {
-    //     // Make a request to the GIPHY API
-    //     axios.get(`https://api.giphy.com/v1/gifs/random?api_key=${process.env.GIPHY_API_KEY}`)
-    //          .then((response) => {
-    //              // Send the response from GIPHY to the client
-    //              res.send(response.data);
-    //          })
-    //          .catch((e) => {
-    //              console.log(e);
-    //              res.sendStatus(500);
-    //          });
-    // });
+
+    // useEffect(() => {
+    //     dispatch({ type: "SEARCH_GIPHY"})
+    // }, [])
+
+    const searchGiphy = () => {
+    dispatch ({ type: 'SEARCH_GIPHY', payload: search})
+}
+
+    return (
+        <div>
+        <h1>Search Page</h1>
+        <h5>{JSON.stringify(results)}</h5>
+        {/* <section>
+            {results.map((tomato) => {
+                return (
+                    <div>
+                        <h3>{tomato.images.downsized_medium.url}</h3> 
+                        <img src={tomato.images.downsized_medium.url} />
+                    </div>
+                )
+            })}
+        </section> */}
+        
+        <input type="text" value={search} onChange = {(e)=> setSearch(e.target.value)}></input>
+        <button onClick = {searchGiphy}>Search</button>
+        </div>
+    )
+
+
 }
 
 
