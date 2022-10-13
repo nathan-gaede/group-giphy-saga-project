@@ -25,7 +25,11 @@ function* searchGiphy(action) {
     try {
         const giphy = yield axios.get(`/api/favorite/${action.payload}`);
         console.log('in searchGiphy. Data is:', giphy.data);
-        yield put({type: 'SET_SEARCH', payload: giphy.data});
+        //.data.data is the array desired. Specific to giphy
+        //order of operations will be either FETCH then SET
+        //Or DELETE, FETCH, SET
+        //SET is basically assigning a variable
+        yield put({type: 'SET_SEARCH', payload: giphy.data.data});
     } catch (error) {
         console.log('Error in searchGiphy:', error);
         alert('Error in searchGiphy');
@@ -72,6 +76,7 @@ const favorites = (state = [], action) => {
 
 const search = (state = [], action) => {
     switch (action.type) {
+        //SET_SEARCH is replacing search keyword with action.payload (results from Giphy)
         case "SET_SEARCH":
             return action.payload;
         default:

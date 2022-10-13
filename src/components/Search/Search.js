@@ -19,8 +19,8 @@ const Search = () => {
     return (
         <div>
         <h1>Search Page</h1>
-        <h5>{JSON.stringify(results)}</h5>
-        {/* <section>
+        {/* <h5>{JSON.stringify(results)}</h5> */}
+        <section>
             {results.map((tomato) => {
                 return (
                     <div>
@@ -29,7 +29,7 @@ const Search = () => {
                     </div>
                 )
             })}
-        </section> */}
+        </section>
         
         <input type="text" value={search} onChange = {(e)=> setSearch(e.target.value)}></input>
         <button onClick = {searchGiphy}>Search</button>
